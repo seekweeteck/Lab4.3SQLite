@@ -4,6 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "my.edu.tarc.lab43sqlite"
         minSdkVersion 15
         targetSdkVersion 25
