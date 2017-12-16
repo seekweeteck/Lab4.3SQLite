@@ -1,11 +1,15 @@
 package my.edu.tarc.lab43sqlite;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import javax.xml.validation.Validator;
+
 public class AddActivity extends AppCompatActivity {
+    private Validator nonempty_validate;
+    private EditText editTextPhone, editTextName, editTextEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,16 +18,34 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void saveRecord(View v){
-        EditText editTextPhone, editTextName, editTextEmail;
-
         editTextPhone = (EditText)findViewById(R.id.editTextPhone);
         editTextName = (EditText)findViewById(R.id.editTextName);
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
 
+        String phone, name, email;
+
+        phone = editTextPhone.getText().toString();
+        if(phone.isEmpty()){
+            editTextPhone.setError(getString(R.string.error_phone));
+            return;
+        }
+        name = editTextName.getText().toString();
+        if(name.isEmpty()){
+            editTextName.setError(getString(R.string.error_name));
+            return;
+        }
+        email= editTextEmail.getText().toString();
+        if(email.isEmpty()){
+            editTextEmail.setError(getString(R.string.error_email));
+            return;
+        }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            editTextEmail.setError(getString(R.string.error_invalid_email));
+            return;
+        }
         UserRecord userRecord = new UserRecord();
-        userRecord.setPhone(editTextPhone.getText().toString());
-        userRecord.setName(editTextName.getText().toString());
-        userRecord.setEmail(editTextEmail.getText().toString());
+        userRecord.setPhone(phone);
+        userRecord.setName(name);
+        userRecord.setEmail(email);
 
         UserSQLHelper userDataSource = new UserSQLHelper(this);
         userDataSource.insertUser(userRecord);

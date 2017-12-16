@@ -7,4 +7,9 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="no_record_message">No record</string>
+    <!--Error text message -->
+    <string name="error_name">Please enter name</string>
+    <string name="error_phone">Please enter phone</string>
+    <string name="error_email">Please enter email</string>
+    <string name="error_invalid_email">Please enter a valid email</string>
 </resources>
